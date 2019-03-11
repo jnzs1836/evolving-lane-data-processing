@@ -60,4 +60,5 @@ def process_files():
         print(count)
 
 if __name__ == '__main__':
-    count = process_trajectory_data(0)
+    #count = process_trajectory_data(0)
+    process_files()

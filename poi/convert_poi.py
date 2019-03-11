@@ -1,6 +1,5 @@
-from coordinates import gcj02towgs84
-from pymongo import MongoClient, GEOSPHERE
-
+from lib.coordinates import gcj02towgs84
+from pymongo import MongoClient
 
 if __name__ == '__main__':
     conn = MongoClient()

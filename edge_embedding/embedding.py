@@ -1,12 +1,7 @@
 import gensim
-from gensim import corpora
-from pprint import pprint
 from pymongo import MongoClient
-from msra_prosess import convert_edge
+from road_network.msra_prosess import convert_edge
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
 
 torch.manual_seed(1)
 # TRAJECTORY_SIZE = 4

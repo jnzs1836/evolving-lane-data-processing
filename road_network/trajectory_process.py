@@ -1,5 +1,5 @@
-from pymongo import MongoClient, GEOSPHERE
-from fin_process import convert_edge
+from pymongo import MongoClient
+from road_network.fin_process import convert_edge
 # This file processes data from map-matched trajectory data.
 def save_mongo(trajectory,collection):
     pass

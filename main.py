@@ -1,12 +1,13 @@
 # Data process for bicycle-lane-planning project.
 import sys
-from home_finder_process import process_homefinder_data
-from msra_prosess import process_msra_data
-from trajectory_process import process_trajectory_data
-from fin_process import process_fin_data
-from mock_data import process_mock_data
+from road_network.home_finder_process import process_homefinder_data
+from road_network.msra_prosess import process_msra_data
+from road_network.fin_process import process_fin_data
+from road_network.mock_data import process_mock_data
 from config import data_path
+from routing.web_routing import process_od,print_shape
 if __name__ == '__main__':
+    print_shape()
     help_info = """Program Direction
     python main.py [config1,]
     help: show help document
