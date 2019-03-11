@@ -1,5 +1,5 @@
 data_file = r'tb_bike_order_1804.csv'
-output_file_size = 5000
+output_file_size = 50000
 record_file = './routing/record.txt'
 import requests
 import pandas as pd
@@ -27,13 +27,19 @@ def process_od():
     print(csv.shape)
     count = 0
     store = []
-    for i in range(2725450):
+    tmp = -1
+
+    with open(record_file,'r') as fp:
+        tmp = int(print(fp.readlines()[-1]))
+
+    for i in range(13352813):
         if file_count < tmp + 1:
             count += 1
             if count == output_file_size:
                 file_count += 1
                 count = 0
             continue
+        
         prefix = 'http://localhost:8989/route?'
         point = 'point='
         split = '%2C'
@@ -69,7 +75,7 @@ def process_od():
                 file_count+=1
             count = 0
             with open(record_file,'w+') as fp:
-                fp.write(str(file_count-1) +'is done')
+                fp.write(str(file_count-1))
 
 
 if __name__ == '__main__':
