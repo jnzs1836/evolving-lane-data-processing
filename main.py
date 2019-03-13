@@ -6,8 +6,10 @@ from road_network.fin_process import process_fin_data
 from road_network.mock_data import process_mock_data
 from config import data_path
 from routing.web_routing import process_od,print_shape
+
 if __name__ == '__main__':
-    print_shape()
+    print("Hello")
+    process_od()
     help_info = """Program Direction
     python main.py [config1,]
     help: show help document
