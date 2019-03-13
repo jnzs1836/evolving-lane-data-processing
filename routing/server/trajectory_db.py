@@ -30,7 +30,6 @@ def parse_trajectory(data,count):
     return document
 
 def process_trajectory_data(file_name,count,collection):
-    print("??")
     documents = []
     with open(file_name,'r') as file:
         print("loaded")
