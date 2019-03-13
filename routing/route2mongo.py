@@ -1,11 +1,12 @@
 from pymongo import MongoClient
 import json
 import os
+from routing.point_trajectory_match import match_trajectory
 
 dir_path = './data/output2/'
 
 
-def parse_route_file(route,count):
+def parse_route_file(route,count,my_point_collection):
     id=0
     data = route['Route']
     for key in data.keys():
@@ -15,6 +16,11 @@ def parse_route_file(route,count):
     edge_id_list = data[str(id)]['paths'][0]['details']['edge_id']
     edge_documents = []
     edge_id = -1
+    route['origin'] = {
+        'coordinates': [route['DepartLongitude'],route['DepartLatitude']]}
+    route['destination'] = {
+        'coordinates':[route['ArriveLongitude'],route['ArriveLatitude']]
+    }
     if count == 0:
         print(edge_id_list)
     for edge in edge_id_list:
@@ -29,17 +35,23 @@ def parse_route_file(route,count):
         edge_documents.append(edge_document)
     route['edges'] = edge_documents
     route['id'] = count
+    route = match_trajectory(route,my_point_collection)
     del route['Route']
+    del route['DepartLongitude']
+    del route['DepartLatitude']
+    del route['ArriveLongitude']
+    del route['ArriveLatitude']
+
     return route
 
 
-def route_file2mongo(file_name,count,collection):
+def route_file2mongo(file_name,count,collection,my_point_collection):
     documents = []
     with open(file_name,'r') as file:
         print("loaded")
         data = json.load(file)
         for trajectory in data:
-            document = parse_route_file(trajectory,count)
+            document = parse_route_file(trajectory,count,my_point_collection)
             if document['id'] < 0:
                 continue
             count+=1
@@ -53,9 +65,9 @@ def route_files2mongo():
     count = 0
     conn = MongoClient()
     db = conn.hangzhou
-    db.drop_collection('trajectory_score_index')
-    collection = db.trajectory_score_index
-
+    # db.drop_collection('trajectory')
+    collection = db.trajectory
+    point_collection = db.point_of_interest
     file_list = os.listdir(dir_path)
     for file in file_list:
         print("parse file " + dir_path + file +" at " + str(count) )
