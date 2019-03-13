@@ -17,9 +17,13 @@ def parse_route_file(route,count,my_point_collection):
     edge_documents = []
     edge_id = -1
     route['origin'] = {
-        'coordinates': [route['DepartLongitude'],route['DepartLatitude']]}
+        'coordinates': [route['DepartLongitude'],route['DepartLatitude']],
+        'type':'Point'
+    }
     route['destination'] = {
-        'coordinates':[route['ArriveLongitude'],route['ArriveLatitude']]
+        'coordinates':[route['ArriveLongitude'],route['ArriveLatitude']],
+        'type': 'Point'
+
     }
     if count == 0:
         print(edge_id_list)
